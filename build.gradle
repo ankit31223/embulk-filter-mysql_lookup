@@ -83,7 +83,7 @@ Gem::Specification.new do |spec|
   spec.description   = %[Mysql Lookup]
   spec.email         = ["ankit.kumar@infoobjects.com"]
   spec.licenses      = ["MIT"]
-  # TODO set this: spec.homepage      = "https://github.com/ankit.kumar/embulk-filter-mysql_lookup"
+  # TODO set this: spec.homepage      = "https://github.com/ankit31223/embulk-filter-mysql_lookup"
 
   spec.files         = `git ls-files`.split("\n") + Dir["classpath/*.jar"]
   spec.test_files    = spec.files.grep(%r"^(test|spec)/")
