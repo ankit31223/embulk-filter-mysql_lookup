@@ -23,7 +23,6 @@ dependencies {
     provided "org.embulk:embulk-core:0.9.8"
     // compile "YOUR_JAR_DEPENDENCY_GROUP:YOUR_JAR_DEPENDENCY_MODULE:YOUR_JAR_DEPENDENCY_VERSION"
     testCompile "junit:junit:4.+"
-    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.19'
 }
 
 task classpath(type: Copy, dependsOn: ["jar"]) {
@@ -83,7 +82,7 @@ Gem::Specification.new do |spec|
   spec.description   = %[Mysql Lookup]
   spec.email         = ["ankit.kumar@infoobjects.com"]
   spec.licenses      = ["MIT"]
-  # TODO set this: spec.homepage      = "https://github.com/ankit31223/embulk-filter-mysql_lookup"
+  spec.homepage      = "https://github.com/ankit.kumar/embulk-filter-mysql_lookup"
 
   spec.files         = `git ls-files`.split("\n") + Dir["classpath/*.jar"]
   spec.test_files    = spec.files.grep(%r"^(test|spec)/")
@@ -96,4 +95,5 @@ end
 /$)
     }
 }
+
 clean { delete "${project.name}.gemspec" }
