@@ -77,7 +77,7 @@ $ gem install gemcutter (For windows OS)
 
 $ ./gradlew gemPush
 $ gem build NameOfYourPlugins (example: embulk-filter-postgress_lookup)
-$ gem push embulk-filter-postgress_lookup-0.1.0.gem (You will get this name after running above command)
+$ gem push NameOfYourPlugins.gem (You will get this name after running above command)
 ```
 
 
