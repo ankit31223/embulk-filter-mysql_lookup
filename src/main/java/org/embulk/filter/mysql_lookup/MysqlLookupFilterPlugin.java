@@ -24,11 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MysqlLookupFilterPlugin
-        implements FilterPlugin
-{
+        implements FilterPlugin {
     public interface PluginTask
-            extends Task
-    {
+            extends Task {
         @Config("host")
         public String getHost();
 
@@ -65,7 +63,7 @@ public class MysqlLookupFilterPlugin
 
         List<String> inputColumns = task.getMappingFrom();
         List<String> keyColumns = task.getMappingTo();
-        if(inputColumns.size()!=keyColumns.size()){
+        if (inputColumns.size() != keyColumns.size()) {
             throw new RuntimeException("Number of mapping_from columns must be exactly equals to number of mapping_to columns");
         }
 
@@ -255,45 +253,56 @@ public class MysqlLookupFilterPlugin
 
         private void add_builder(int colNum, Column column, List<String> searchingKeyData, List<String> inputColumns, Map<String, Integer> keyMap) {
             if (Types.STRING.equals(column.getType())) {
-                if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
-                    searchingKeyData.add(reader.getString(column));
-                    int key = keyMap.get("Key");
-                    keyMap.put("Key", ++key);
+                if (keyMap.get("Key") < inputColumns.size()) {
+                    if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
+                        searchingKeyData.add(reader.getString(column));
+                        int key = keyMap.get("Key");
+                        keyMap.put("Key", ++key);
+                    }
                 }
                 builder.setString(colNum, reader.getString(column));
             } else if (Types.BOOLEAN.equals(column.getType())) {
-                if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
-                    searchingKeyData.add(String.valueOf(reader.getBoolean(column)));
-                    int key = keyMap.get("Key");
-                    keyMap.put("Key", ++key);
+                if (keyMap.get("Key") < inputColumns.size()) {
+                    if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
+                        searchingKeyData.add(String.valueOf(reader.getBoolean(column)));
+                        int key = keyMap.get("Key");
+                        keyMap.put("Key", ++key);
+                    }
                 }
                 builder.setBoolean(colNum, reader.getBoolean(column));
             } else if (Types.DOUBLE.equals(column.getType())) {
-                if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
-                    searchingKeyData.add(String.valueOf(reader.getDouble(column)));
-                    int key = keyMap.get("Key");
-                    keyMap.put("Key", ++key);
+                if (keyMap.get("Key") < inputColumns.size()) {
+                    if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
+                        searchingKeyData.add(String.valueOf(reader.getDouble(column)));
+                        int key = keyMap.get("Key");
+                        keyMap.put("Key", ++key);
+                    }
                 }
                 builder.setDouble(colNum, reader.getDouble(column));
             } else if (Types.LONG.equals(column.getType())) {
-                if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
-                    searchingKeyData.add(String.valueOf(reader.getLong(column)));
-                    int key = keyMap.get("Key");
-                    keyMap.put("Key", ++key);
+                if (keyMap.get("Key") < inputColumns.size()) {
+                    if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
+                        searchingKeyData.add(String.valueOf(reader.getLong(column)));
+                        int key = keyMap.get("Key");
+                        keyMap.put("Key", ++key);
+                    }
                 }
+
                 builder.setLong(colNum, reader.getLong(column));
             } else if (Types.TIMESTAMP.equals(column.getType())) {
-                if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
-                    searchingKeyData.add(String.valueOf(reader.getTimestamp(column)));
-                    int key = keyMap.get("Key");
-                    keyMap.put("Key", ++key);
+                if (keyMap.get("Key") < inputColumns.size()) {
+                    if (column.getName().equalsIgnoreCase(inputColumns.get(keyMap.get("Key")))) {
+                        searchingKeyData.add(String.valueOf(reader.getTimestamp(column)));
+                        int key = keyMap.get("Key");
+                        keyMap.put("Key", ++key);
+                    }
                 }
                 builder.setTimestamp(colNum, reader.getTimestamp(column));
             }
         }
 
         private void add_builder_for_new_column(int colNum, String newlyAddedColumnType, String matchedData, Boolean isDataMatched) {
-            try{
+            try {
                 if (newlyAddedColumnType.equalsIgnoreCase("string")) {
                     if (isDataMatched) {
                         builder.setString(colNum, matchedData);
@@ -305,7 +314,7 @@ public class MysqlLookupFilterPlugin
                     if (isDataMatched) {
                         if (matchedData.length() == 0) {
                             builder.setLong(colNum, 0);
-                        }else{
+                        } else {
                             builder.setLong(colNum, Long.parseLong(matchedData));
                         }
                     } else {
@@ -316,7 +325,7 @@ public class MysqlLookupFilterPlugin
                     if (isDataMatched) {
                         if (matchedData.length() == 0) {
                             builder.setDouble(colNum, 0.0);
-                        }else{
+                        } else {
                             builder.setDouble(colNum, Double.parseDouble(matchedData));
                         }
                     } else {
@@ -326,7 +335,7 @@ public class MysqlLookupFilterPlugin
                     if (isDataMatched) {
                         if (matchedData.length() == 0) {
                             builder.setNull(colNum);
-                        }else{
+                        } else {
                             builder.setBoolean(colNum, Boolean.parseBoolean(matchedData));
                         }
                     } else {
@@ -336,7 +345,7 @@ public class MysqlLookupFilterPlugin
                     if (isDataMatched) {
                         if (matchedData.length() == 0) {
                             builder.setNull(colNum);
-                        }else{
+                        } else {
                             java.sql.Timestamp timestamp = java.sql.Timestamp.valueOf(matchedData);
                             Instant instant = timestamp.toInstant();
                             Timestamp spiTimeStamp = Timestamp.ofInstant(instant);
@@ -347,9 +356,9 @@ public class MysqlLookupFilterPlugin
                     }
 
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                throw new RuntimeException("Data type could not be cast due to wrong data or issue in typecasting timestamp",e);
+                throw new RuntimeException("Data type could not be cast due to wrong data or issue in typecasting timestamp", e);
             }
 
         }

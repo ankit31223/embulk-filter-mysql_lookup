@@ -19,10 +19,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile  "org.embulk:embulk-core:0.9.8"
-    provided "org.embulk:embulk-core:0.9.8"
+    compile  "org.embulk:embulk-core:0.9.+"
+    provided "org.embulk:embulk-core:0.9.+"
     // compile "YOUR_JAR_DEPENDENCY_GROUP:YOUR_JAR_DEPENDENCY_MODULE:YOUR_JAR_DEPENDENCY_VERSION"
     testCompile "junit:junit:4.+"
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.19'
 }
 
 task classpath(type: Copy, dependsOn: ["jar"]) {
@@ -57,9 +58,8 @@ task gem(type: JRubyExec, dependsOn: ["gemspec", "classpath"]) {
 }
 
 task gemPush(type: JRubyExec, dependsOn: ["gem"]) {
-    jrubyArgs "-S"
-    script "gem"
-    scriptArgs "push", "pkg/${project.name}-${project.version}.gem"
+    jrubyArgs "-rrubygems/gem_runner", "-eGem::GemRunner.new.run(ARGV)", "push"
+    script "pkg/${project.name}-${project.version}.gem"
 }
 
 task "package"(dependsOn: ["gemspec", "classpath"]) {
@@ -88,7 +88,6 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r"^(test|spec)/")
   spec.require_paths = ["lib"]
 
-  #spec.add_dependency 'YOUR_GEM_DEPENDENCY', ['~> YOUR_GEM_DEPENDENCY_VERSION']
   spec.add_development_dependency 'bundler', ['~> 1.0']
   spec.add_development_dependency 'rake', ['~> 12.0']
 end

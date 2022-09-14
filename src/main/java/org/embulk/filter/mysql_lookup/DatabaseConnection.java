@@ -19,15 +19,20 @@ public class DatabaseConnection {
     }
 
     public static Connection getConnection(MysqlLookupFilterPlugin.PluginTask task){
-        if(connection==null){
-            try {
-                new DatabaseConnection(task);
-                return connection;
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException();
+        try {
+            if(connection==null || connection.isClosed()){
+                try {
+                    new DatabaseConnection(task);
+                    return connection;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException();
+                }
             }
+        }catch (Exception e){
+            throw new RuntimeException(e);
         }
+
         return connection;
     }
 }
