@@ -1,6 +1,6 @@
 # MySql lookup filter plugin for Embulk
 ​
-A filter plugin for Embulk to lookup MySQl table data
+An Embulk filter plugin for Lookup Transformation with MySQL database
 ​
 ## Configuration
 ​
