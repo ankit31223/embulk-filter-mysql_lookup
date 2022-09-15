@@ -1,4 +1,4 @@
-# MySql lookup filter plugin for Embulk
+# MYSQL lookup filter plugin for Embulk
 ​
 An Embulk filter plugin for Lookup Transformation with MySQL database
 ​
@@ -37,10 +37,10 @@ Input1 for table 1 is as follows :-
     2011                    8                           NULL                       42%
 ```
 ​
-lookup file for table 2 is as follows :-
+Input2 for table 2 is as follows :-
 ​
 ```
-    id               country_population                         country_address             country_GDP
+    id               country_population                        country_address               country_GDP
     
     1                       11.3                                    India                       1.67
     2                       18.2                                     USA                        16.72
@@ -49,18 +49,24 @@ lookup file for table 2 is as follows :-
     5                       57                                     Ukraine                      1.08
     6                       63                                      Italy                       2.068
     7                       17                                       UK                         2.49
-    8                       28                                       UAE                       1.18
+    8                       28                                       UAE                        1.18                            
+    
+    
+    Note: country_population is calculated in Billion and country_GDP is calculated in $USD Trillion
 ```
 ​
-(As shown in yaml below, columns mentioned in mapping_from will be mapped with columns mentioned in mapping_to      
-ie: country_code : id                       
-country_name : country_address.                     
-After successful mapping an Output.csv file containing the columns mentioned in new_columns will be generated)
+As shown in yaml below, columns mentioned in mapping_from will be mapped with columns mentioned in mapping_to      
+ie:
+​
+country_code : id                       
+country_name : country_address                     
+After successful mapping an Output.csv file containing the columns mentioned in new_columns will be generated              
+​
 ​
 Output File generated :-
 ​
 ```
-    year               country_code                 country_name            literacy_rate                   country_GDP                     country_population
+    year               country_code                 country_name              literacy_rate                 country_GDP                   country_population
     
     1990                    1                          India                       80%                         1.67                                11.3
     1993                    2                           USA                        83%                         16.72                               18.2
@@ -75,7 +81,7 @@ Output File generated :-
 ​
 ​
 ```yaml
- - type: mysql_lookup
+ - type: mssql_lookup
    host: localhost
    port: 1433
    database: test
