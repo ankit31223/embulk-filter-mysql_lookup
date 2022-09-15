@@ -1,0 +1,38 @@
+exec:
+  max_threads: 2
+  min_output_tasks: 1
+in:
+  type: mysql
+  host: localhost
+  user: root
+  password: "root"
+  database: information
+  table: inputsource
+  select: "calandar_key,year_number,quarter_number,attr_1"
+filters:
+  - type: mysqllookup
+    lookup_destination: mysql
+    host: localhost
+    port: 3306
+    database: information
+    tablename: country
+    username: root
+    password: root
+    mapping_from:
+      - quarter_number
+      - attr_1
+    mapping_to:
+      - id
+      - country_code
+    new_columns:
+      - { name: country_name, type: string }
+      - { name: country_address, type: string }
+      - { name: country_code,type: double }
+out:
+  type: mysql
+  host: localhost
+  user: root
+  password: root
+  database: information
+  table: output
+  mode: insert
