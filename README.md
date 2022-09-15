@@ -57,12 +57,15 @@ Input2 for table 2 is as follows :-
 ​
 As shown in yaml below, columns mentioned in mapping_from will be mapped with columns mentioned in mapping_to      
 ie:
+
 ​
 country_code : id                       
-country_name : country_address                     
+country_name : country_address 
+
 After successful mapping an Output.csv file containing the columns mentioned in new_columns will be generated              
 ​
 ​
+
 Output File generated :-
 ​
 ```
