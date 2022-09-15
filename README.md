@@ -60,7 +60,7 @@ After successful mapping an Output.csv file containing the columns mentioned in 
 Output File generated :-
 ​
 ```
-    year               country_code                 country_name            literacy_rate           country_GDP($USD Trillion)          country_population(in bn)
+    year               country_code                 country_name            literacy_rate                   country_GDP                     country_population
     
     1990                    1                          India                       80%                         1.67                                11.3
     1993                    2                           USA                        83%                         16.72                               18.2
