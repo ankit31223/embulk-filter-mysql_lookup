@@ -17,7 +17,7 @@ An Embulk filter plugin for Lookup Transformation with MySQL database
     - **mapping_to**:   (Name of columns to be matched with table 1 columns) (required)
         - **Name of column-1**: column name-1 from input file
         - **Name of column-2**: column name-2 from input file
-    - **New Columns**:   (New generated column names) (required)
+    - **new_columns**:   (New generated column names) (required)
         - **Name-1,Type-1**: Any Name, Type of the name (name: country_name, type: string)
         - **Name-2,Type-2**: Any Name, Type of the name (name: country_address, type: string) etc ...
 ## Example - columns
@@ -40,7 +40,7 @@ Input1 for table 1 is as follows :-
 lookup file for table 2 is as follows :-
 ​
 ```
-    id               country_population(in bn)                 country_address            country_GDP($USD Trillion)
+    id               country_population                         country_address             country_GDP
     
     1                       11.3                                    India                       1.67
     2                       18.2                                     USA                        16.72
