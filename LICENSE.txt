@@ -1,4 +1,4 @@
-Copyright (c) 2015 InfoObjects
+Copyright (c) 2022 InfoObjects
 
 MIT License
 
